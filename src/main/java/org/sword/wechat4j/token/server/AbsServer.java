@@ -38,16 +38,18 @@ public abstract class AbsServer implements IServer{
 	 * 加载自定义中控服务器
 	 * @return 自定义的中控服务器
 	 */
-	public IServer customerServer(){
+	public CustomerServer customerServer(){
+	    if(StringUtils.isBlank(customerServerClass)){
+	        return null;
+	    }
 		String className = customerServerClass;
-		IServer customerServer = null;
+		CustomerServer customerServer = null;
 		try {
-			Class clazz = Class.forName(className);
-			customerServer = (IServer)clazz.newInstance();
+			Class<?> clazz = Class.forName(className);
+			customerServer = (CustomerServer)clazz.newInstance();
 		} catch (Exception e) {
 			logger.error("系统找不到" + className);
-			logger.error("自定义server实例化失败，" + e.getMessage());
-			e.printStackTrace();
+			logger.error("自定义server实例化失败，" + e.getMessage(), e);
 		}
 		return customerServer;
 	}

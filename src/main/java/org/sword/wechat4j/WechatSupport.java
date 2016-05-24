@@ -36,7 +36,7 @@ import org.sword.wechat4j.response.WechatResponse;
  * @author ChengNing
  * @date   2014-12-4
  */
-public abstract class WechatSupport {
+public abstract class WechatSupport{
 	
 	Logger logger = Logger.getLogger(WechatSupport.class);
 	
@@ -55,7 +55,7 @@ public abstract class WechatSupport {
 		this.wechatRequest = new WechatRequest();
 		this.wechatResponse = new WechatResponse();
 	}
-
+	
 	/**
 	 * wechat调用入口，进行数据接收，事件分发
 	 * @return

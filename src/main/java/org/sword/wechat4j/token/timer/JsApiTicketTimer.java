@@ -24,15 +24,16 @@ public class JsApiTicketTimer extends TimerTask {
 
 	@Override
 	public void run() {
-		logger.info("jsapi_ticket 定时任务启动，获取新的jsapi_ticket");
+		logger.info("jsapi_ticket timer startup to get new jsapi_ticket");
 		// 得到新的access token
 		Ticket jsapiTicket = new Ticket(TicketType.jsapi);
 		// 手动获取成功之后持久化accessToken
 		if (jsapiTicket.request()) {
 			JsApiTicketServer jsapiTicketServer = new JsApiTicketServer();
-			CustomerServer customerServer = (CustomerServer) jsapiTicketServer
-					.customerServer();
-			customerServer.save(jsapiTicket);
+			CustomerServer customerServer = jsapiTicketServer.customerServer();
+            if(customerServer != null){
+                customerServer.save(jsapiTicket);
+            }
 		}
 	}
 
